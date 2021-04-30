@@ -13,6 +13,7 @@ pipeline {
   stages {
     stage('Build') {
       steps {  // no container directive is needed as the maven container is the default
+        sh "Stage Build started"
         sh "mvn clean package"   
       }
     }
@@ -20,13 +21,14 @@ pipeline {
       steps { 
         container('sonar-scanner') {  
         //sh "ls -lh"
-        //sh "env"
-        sh "sonar-scanner -Dsonar.login=$sonar_login -Dsonar.host.url=http://52.190.40.168 -Dsonar.projectKey=sonarqube-test -Dsonar.sources=. -Dsonar.java.binaries=target/my-app-1.0-SNAPSHOT.jar -X"   
+        sh "Stage sonar-scanner started"
+        sh "sonar-scanner -Dsonar.login=$sonar_login -Dsonar.host.url=http://52.190.40.168 -Dsonar.projectKey=sonarqube-test -Dsonar.sources=. -Dsonar.java.binaries=target/demo-1.0-SNAPSHOT.jar -X"   
       }
     }
     }  
     stage('Nexus') {
       steps {  // no container directive is needed as the maven container is the default
+        sh "Stage Nexus started"
         sh "mvn deploy:deploy-file -DrepositoryId=vilas -DgroupId=com.mycompany -DartifactId=demo -Dversion=1.0-SNAPSHOT -Durl=http://40.88.192.216/repository/vilas/ -Dfile=target/demo-1.0-SNAPSHOT.jar -X"   
       }
     }
