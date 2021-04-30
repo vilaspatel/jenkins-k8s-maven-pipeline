@@ -20,14 +20,14 @@ pipeline {
       steps { 
         container('sonar-scanner') {  
         //sh "ls -lh"
-        sh "env"
+        //sh "env"
         sh "sonar-scanner -Dsonar.login=$sonar_login -Dsonar.host.url=http://52.190.40.168 -Dsonar.projectKey=sonarqube-test -Dsonar.sources=. -Dsonar.java.binaries=target/my-app-1.0-SNAPSHOT.jar -X"   
       }
     }
     }  
     stage('Nexus') {
       steps {  // no container directive is needed as the maven container is the default
-        sh "mvn deploy:deploy-file -DgroupId=com.company.app -DartifactId=my-app -Dversion=1.0-SNAPSHOT -DgeneratePom=true -Dpackaging=jar -DrepositoryId=maven-hosted -Durl=http://40.88.192.216/repository/maven-hosted/ -Dfile=target/my-app-1.0-SNAPSHOT.jar"   
+        sh "mvn deploy:deploy-file -DrepositoryId=vilas -DgroupId=com.mycompany -DartifactId=demo -Dversion=1.0-SNAPSHOT -Durl=http://40.88.192.216/repository/vilas/ -Dfile=target/demo-1.0-SNAPSHOT.jar -X"   
       }
     }
   }
