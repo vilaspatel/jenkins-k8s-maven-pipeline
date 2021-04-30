@@ -14,8 +14,7 @@ spec:
           memory: "1Gi"
       volumeMounts:
       - name: maven-setting
-        mountPath: "/root/.m2/"
-        readOnly: true    
+        mountPath: "/root/.m2/"   
     - name: sonar-scanner
       image: sonarsource/sonar-scanner-cli
       command: ["tail", "-f", "/dev/null"]  # this or any command that is bascially a noop is required, this is so that you don't overwrite the entrypoint of the base container
