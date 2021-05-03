@@ -29,7 +29,7 @@ pipeline {
     stage('Nexus') {
       steps {  // no container directive is needed as the maven container is the default
         sh "echo 'Stage Nexus started'"
-        sh "cp /opt/settings.xml /root.m2/settings.xml"
+        sh "cp /opt/settings.xml /root/.m2/settings.xml"
         sh "mvn deploy:deploy-file -DrepositoryId=vilas -DgroupId=com.mycompany -DartifactId=demo -Dversion=1.0-SNAPSHOT -Durl=http://40.88.192.216/repository/vilas/ -Dfile=target/demo-1.0-SNAPSHOT.jar -X"   
       }
     }
